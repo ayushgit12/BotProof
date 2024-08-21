@@ -1,42 +1,77 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Full-page background image */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('../public/preview.jpg') no-repeat center center fixed; /* Add your background image here */
+  background-size: cover; /* Ensures the background image covers the whole page */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Blur the background without affecting the CAPTCHA box */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-size: cover;
+  filter: blur(10px); /* Blurs only the background image */
+  z-index: 1; /* Places the blur effect beneath other elements */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Glassy CAPTCHA container with a bulging effect */
+.captcha-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Light semi-transparent border */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow for bulging effect */
+  backdrop-filter: blur(10px); /* Glassy blur effect for the CAPTCHA box */
+  -webkit-backdrop-filter: blur(10px); /* Ensure support on WebKit browsers */
+  transform: scale(1.25); /* Scales the entire container */
+  position: relative;
+  z-index: 10; /* Ensures the CAPTCHA box is above the blurred background */
 }
 
-.card {
-  padding: 2em;
+.captcha-header {
+  font-family: 'Arial', sans-serif;
+  font-size: 30px; /* Increased size by 1.25x */
+  font-weight: bold;
+  color: #4caf50;
+  margin-bottom: 15px;
 }
 
-.read-the-docs {
-  color: #888;
+.captcha-input {
+  width: 100%;
+  padding: 12.5px; /* Increased padding by 1.25x */
+  margin: 12.5px 0; /* Increased margin by 1.25x */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Slightly transparent border */
+  border-radius: 5px;
+  font-size: 20px; /* Increased font size by 1.25x */
+  background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent input field */
+  color: #fff; /* White text for better readability */
+}
+
+.captcha-button {
+  width: 100%;
+  padding: 12.5px; /* Increased padding by 1.25x */
+  background-color: rgba(76, 175, 80, 0.8); /* Slightly transparent button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px; /* Increased font size by 1.25x */
+  transition: background-color 0.3s ease;
+}
+
+.captcha-button:hover {
+  background-color: rgba(69, 160, 73, 0.8);
 }
