@@ -5,7 +5,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('../public/preview.jpg') no-repeat center center fixed; /* Add your background image here */
+/* Add your background image here */
   background-size: cover; /* Ensures the background image covers the whole page */
 }
 
