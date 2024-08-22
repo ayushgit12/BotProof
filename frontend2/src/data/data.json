@@ -1,8 +1,8 @@
 {
     "Header": {
 
-        "title": "We are a Landing Page",
-        "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo nibh ante facilisis bibendum."
+        "title": "Welcome to BotProof ",
+        "paragraph": " Say goodbye to frustrating CAPTCHAs. Our solution provides a smooth user experience, reducing friction while maintaining robust security."
 
     },
     "About": {
@@ -112,25 +112,28 @@
         "twitter": "twitter.com",
         "youtube": "youtube.com"
     },
-    "Features": [{
-            "icon": "fa fa-comments-o",
-            "title": "Lorem ipsum",
-            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+    "Features": [ 
+        {
+            "icon": "fa fa-user-secret",
+            "title": "Intelligent Detection",
+            "text": "Our system uses cutting-edge machine learning algorithms to accurately differentiate between human users and bots, minimizing false positives and ensuring genuine interactions."
+        },
+       
+        {
+            "icon": "fa fa-check",
+            "title": "User-Friendly Experience",
+            "text": "Say goodbye to frustrating CAPTCHAs. Our solution provides a smooth user experience, reducing friction while maintaining robust security with minimal user interaction to verify authenticity."
+        },
+       
+        {
+            "icon": "fa fa-lock",
+            "title": "Enhanced Security",
+            "text": "Protect your platform from DoS/DDoS attacks with our advanced ML-based verification, which provides an additional layer of security beyond traditional methods."
         },
         {
-            "icon": "fa fa-bullhorn",
-            "title": "Lorem ipsum",
-            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-        },
-        {
-            "icon": "fa fa-group",
-            "title": "Lorem ipsum",
-            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-        },
-        {
-            "icon": "fa fa-magic",
-            "title": "Lorem ipsum",
-            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+            "icon": "fa fa-cogs",
+            "title": "Customizable Integration",
+            "text": "Easily integrate our solution into your existing systems with customizable options to fit your specific needs and infrastructure."
         }
     ]
 }
