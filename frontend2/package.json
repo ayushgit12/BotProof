@@ -12,7 +12,9 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^5.3.0",
+    "react-router-dom": "^6.26.1",
     "react-scripts": "^3.4.4",
+    "react-simple-captcha": "^9.3.1",
     "react-simple-image-viewer": "^0.0.8",
     "smooth-scroll": "^16.1.3"
   },

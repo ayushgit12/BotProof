@@ -6,19 +6,19 @@
 
     },
     "About": {
-        "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "paragraph": "BotProof is a cutting-edge solution that redefines online security by replacing traditional CAPTCHA methods with an advanced machine learning approach. Our system captures and analyzes user behavior in real-time to distinguish between human users and bots, ensuring a smooth and seamless experience for legitimate users while maintaining robust security. With BotProof, there's no need for disruptive challenges or puzzles—just effortless verification that respects your time and privacy.",
         "Why": [
-            "Lorem ipsum dolor",
-            "Tempor incididunt",
-            "Lorem ipsum dolor",
-            "Incididunt ut labore"
-        ],
-        "Why2": [
-            "Aliquip ex ea commodo",
-            "Lorem ipsum dolor",
-            "Exercitation ullamco",
-            "Lorem ipsum dolor"
-        ]
+      "Seamless User Experience",
+      "Advanced Machine Learning",
+      "Real-time Verification",
+      "No Disruption to Users"
+    ],
+    "Why2": [
+      "Enhanced Security",
+      
+      "Bot Detection with Precision",
+      "Compliant with Privacy Standards"
+    ]
     },
     "Services": [{
             "icon": "fa fa-wordpress",
