@@ -5,7 +5,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-/* Add your background image here */
+ /* background-image: url("../public/preview.jpg"); */
   background-size: cover; /* Ensures the background image covers the whole page */
 }
 
@@ -58,6 +58,7 @@ body::before {
   font-size: 20px; /* Increased font size by 1.25x */
   background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent input field */
   color: #fff; /* White text for better readability */
+  outline: none;
 }
 
 .captcha-button {
@@ -68,10 +69,15 @@ body::before {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 20px; /* Increased font size by 1.25x */
+  font-size: 10px; /* Increased font size by 1.25x */
   transition: background-color 0.3s ease;
 }
 
 .captcha-button:hover {
   background-color: rgba(69, 160, 73, 0.8);
+}
+
+input::placeholder {
+  font-size: 16px;
+ 
 }
