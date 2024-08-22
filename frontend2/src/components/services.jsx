@@ -1,4 +1,6 @@
 import React from 'react'
+import '../index.css'
+import { FaPython } from 'react-icons/fa'
 
 
 export const Services = (props) => {
@@ -6,25 +8,38 @@ export const Services = (props) => {
     <div id='services' className='text-center'>
       <div className='container'>
         <div className='section-title'>
-          <h2>Our Services</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
-            dapibus leonec.
+          <h2 className='text-5xl'>Our Tech Stack</h2>
+          <p className='text-black'>
+            We have worked upon this website using the following technologies.
           </p>
         </div>
-        <div className='row'>
-          {props.data
-            ? props.data.map((d, i) => (
-                <div key={`${d.name}-${i}`} className='col-md-4'>
-                  {' '}
-                  <i className={d.icon}></i>
-                  <div className='service-desc'>
-                    <h3>{d.name}</h3>
-                    <p>{d.text}</p>
-                  </div>
-                </div>
-              ))
-            : 'loading'}
+        <div className='flex justify-around'>
+          <div>
+            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <p>PYTHON</p>
+          </div>
+          <div>
+            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <p>PYTHON</p>
+          </div>
+          <div>
+            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <p>PYTHON</p>
+          </div>
+          <div>
+            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <p>PYTHON</p>
+          </div>
+          <div>
+            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <p>PYTHON</p>
+          </div>
+          <div>
+            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <p>PYTHON</p>
+          </div>
+          
+          
         </div>
       </div>
     </div>

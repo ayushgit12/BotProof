@@ -10,6 +10,7 @@ import { Footer } from './components/footer'
 import JsonData from './data/data.json'
 import SmoothScroll from 'smooth-scroll'
 import React from 'react'
+import './index.css'
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
