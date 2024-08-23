@@ -12,7 +12,8 @@ import SmoothScroll from 'smooth-scroll'
 import React from 'react'
 import {BrowserRouter ,Routes,Route} from 'react-router-dom'
 import CaptchaTest from './components/Captcha.jsx'
-import './App.css'
+// import './App.css'
+import SignUp from './components/signup.jsx'
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -44,6 +45,7 @@ const App = () => {
             }
           />
           <Route path="/captcha-test" element={<CaptchaTest />} />
+            <Route path="/signup" element={<SignUp />} />
         </Routes>
         <Footer />
       </div>

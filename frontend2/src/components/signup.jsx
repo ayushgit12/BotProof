@@ -1,16 +1,16 @@
-import { transform } from "framer-motion";
+// import { transform } from "framer-motion";
 import React, { useState } from "react";
-import { FaEye } from "react-icons/fa";
-import { useRef } from "react";
-import { Password } from 'primereact/password';
-import Box from '@mui/material/Box';
+// import { FaEye } from "react-icons/fa";
+// import { useRef } from "react";
+// import { Password } from 'primereact/password';
+// import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
+// import Input from '@mui/material/Input';
+// import FilledInput from '@mui/material/FilledInput';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
+// import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Visibility from '@mui/icons-material/Visibility';
@@ -21,10 +21,10 @@ import ParticlesBg from "particles-bg";
         
 
 
-const App = () => {
+const SignUp = () => {
   const [isSignUp, setIsSignUp] = useState(false);
-  const passwordRef = useRef(null);
-  const [value, setValue] = useState('');
+  // const passwordRef = useRef(null);
+  // const [value, setValue] = useState('');
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -315,4 +315,5 @@ const App = () => {
   );
 };
 
-export default App;
+export default  SignUp 
+;

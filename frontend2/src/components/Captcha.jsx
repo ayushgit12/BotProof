@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-
+// import '../App.css'
 class CaptchaTest extends Component {
    componentDidMount() {
       loadCaptchaEnginge(6); 
