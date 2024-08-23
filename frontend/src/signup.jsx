@@ -185,7 +185,7 @@ const App = () => {
             <div className="flex justify-center mt-20">
           <img
           className="animate-bounce"
-              src="../public/bot2.png"
+              src="/Users/dhruvagrawal/sih_bot/sih_bot/frontend2/public/bot2.png"
               alt="Bot"
               style={{
                 width: "92px",
