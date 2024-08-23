@@ -181,14 +181,14 @@ const SignUp = () => {
           >
             
           </div>
-          <div style={{ zIndex: 2, position: "relative", paddingBottom:"5px", height : "700px" }}>
+          <div style={{ zIndex: 2, position: "relative", paddingBottom:"5px", height : "1100px" }}>
             <div className="flex justify-center mt-20">
           <img
           className="animate-bounce"
-              src="../public/bot2.png"
+              src="https://img.freepik.com/free-vector/cartoon-style-robot-vectorart_78370-4103.jpg?semt=ais_hybrid"
               alt="Bot"
               style={{
-                width: "92px",
+                width: "75px",
                 height: "auto",
                 visibility: "visible",
                 position: "absolute",
