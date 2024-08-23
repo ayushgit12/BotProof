@@ -8,34 +8,34 @@ export const Services = (props) => {
     <div id='services' className='text-center'>
       <div className='container'>
         <div className='section-title'>
-          <h2 className='text-5xl'>Our Tech Stack</h2>
+        <h2 className='text-6xl font-semibold'>Our Tech Stack</h2>
           <p className='text-black'>
             We have worked upon this website using the following technologies.
           </p>
         </div>
         <div className='flex justify-around'>
           <div>
-            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <i className='fa relative'><FaPython size={50} className='mx-auto' /></i>
             <p>PYTHON</p>
           </div>
           <div>
-            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <i className='fa relative'><FaPython size={50} className='mx-auto' /></i>
             <p>PYTHON</p>
           </div>
           <div>
-            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <i className='fa relative'><FaPython size={50} className='mx-auto' /></i>
             <p>PYTHON</p>
           </div>
           <div>
-            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <i className='fa'><FaPython size={50} className='mx-auto' /></i>
             <p>PYTHON</p>
           </div>
           <div>
-            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <i className='fa relative'><FaPython size={50} className='mx-auto' /></i>
             <p>PYTHON</p>
           </div>
           <div>
-            <i className='fa relative'><FaPython size={50} className='absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2' /></i>
+            <i className='fa relative'><FaPython size={50} className='mx-auto' /></i>
             <p>PYTHON</p>
           </div>
           

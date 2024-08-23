@@ -56,7 +56,7 @@ const SignUp = () => {
         alignItems: "center",
       }}
     >
-      <ParticlesBg type="circle" bg={{zIndex: 0, position:"absolute", top:0}} />
+      <ParticlesBg type="circle" bg={{ zIndex: 0, position: "absolute", top: 0, filter: "blur(12px)" }} />
       <div
         style={{
           background: "linear-gradient(to right, rgb(25, 60, 71), rgb(80, 140, 85), rgb(25, 60, 71))",
@@ -139,13 +139,14 @@ const SignUp = () => {
               marginLeft: "40px",
             }}
           >
-            <p>Don't have an account?</p>
+            <p className="text-3xl mb-3">Don't have an account?</p>
             <div
+            className="rounded-xl"
               style={{
                 cursor: "pointer",
                 backgroundColor: "transparent",
                 width: "90px",
-                padding: "10px 15px",
+                padding: "10px 12px",
                 border: "1px solid white",
                 fontSize: "16px",
                 opacity: 1,

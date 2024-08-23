@@ -22,6 +22,13 @@ export const Header = (props) => {
                 >
                   Learn More
                 </a>{' '}
+                <a
+                  href='/signup'
+                  className='btn btn-custom btn-lg page-scroll'
+                >
+                  Enter Site
+                </a>{' '}
+
               </div>
             </div>
           </div>
