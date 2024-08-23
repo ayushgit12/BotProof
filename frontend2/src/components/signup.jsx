@@ -1,31 +1,34 @@
-// import { transform } from "framer-motion";
 import React, { useState } from "react";
-// import { FaEye } from "react-icons/fa";
-// import { useRef } from "react";
-// import { Password } from 'primereact/password';
-// import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-// import Input from '@mui/material/Input';
-// import FilledInput from '@mui/material/FilledInput';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-// import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ParticlesBg from "particles-bg";
+import axios from "axios";
+// import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
+// import { AnimatePresence } from "framer-motion";
 
-
-        
-
+const allowedDomainExtensions = [".com", ".in", ".edu", ".org", ".net", ".gov"];
 
 const SignUp = () => {
   const [isSignUp, setIsSignUp] = useState(false);
-  // const passwordRef = useRef(null);
-  // const [value, setValue] = useState('');
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [domainError, setDomainError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState("");
+  // const toast = useToast();
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -33,15 +36,66 @@ const SignUp = () => {
     event.preventDefault();
   };
 
-  
-
   const toggleForm = () => {
     setIsSignUp(!isSignUp);
   };
 
-  return (
+  const isValidDomainExtension = (email) => {
+    return allowedDomainExtensions.some((extension) =>
+      email.endsWith(extension)
+    );
+  };
 
-    
+  const handleEmailChange = (event) => {
+    const emailInput = event.target.value;
+    setFormData({ ...formData, email: emailInput });
+
+    if (!isValidDomainExtension(emailInput)) {
+      setDomainError("Email domain extension is not allowed");
+    } else {
+      setDomainError("");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("password and confirmPassword do not match");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/users/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setMsg(response.data.mssg);
+      toast.success("registration succesful!!");
+      console.log("success");
+
+      toggleForm();
+    } catch (error) {
+      console.error("Error registering user:", error);
+      toast.error("registration failed ! please try again !");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
     <div
       style={{
         margin: "0",
@@ -56,10 +110,15 @@ const SignUp = () => {
         alignItems: "center",
       }}
     >
-      <ParticlesBg type="circle" bg={{ zIndex: 0, position: "absolute", top: 0, filter: "blur(12px)" }} />
+      <ParticlesBg
+        type="circle"
+        bg={{ zIndex: 0, position: "absolute", top: 0 }}
+      />
+      <Toaster />
       <div
         style={{
-          background: "linear-gradient(to right, rgb(25, 60, 71), rgb(80, 140, 85), rgb(25, 60, 71))",
+          background:
+            "linear-gradient(to right, rgb(25, 60, 71), rgb(80, 140, 85), rgb(25, 60, 71))",
           width: "600px",
           height: "320px",
           display: "flex",
@@ -120,10 +179,7 @@ const SignUp = () => {
               zIndex: 0,
               bottom: "30px",
             }}
-          >
-            
-           
-          </div>
+          ></div>
           <div
             style={{
               color: "white",
@@ -141,7 +197,7 @@ const SignUp = () => {
           >
             <p className="text-3xl mb-3">Don't have an account?</p>
             <div
-            className="rounded-xl"
+              className="rounded-xl"
               style={{
                 cursor: "pointer",
                 backgroundColor: "transparent",
@@ -179,69 +235,138 @@ const SignUp = () => {
               zIndex: 0,
               top: "-75px",
             }}
+          ></div>
+          <div
+            style={{
+              zIndex: 2,
+              position: "relative",
+              paddingBottom: "5px",
+              height: "1100px",
+            }}
           >
-            
-          </div>
-          <div style={{ zIndex: 2, position: "relative", paddingBottom:"5px", height : "1100px" }}>
             <div className="flex justify-center mt-20">
-          <img
-          className="animate-bounce"
-              src="https://img.freepik.com/free-vector/cartoon-style-robot-vectorart_78370-4103.jpg?semt=ais_hybrid"
-              alt="Bot"
-              style={{
-                width: "75px",
-                height: "auto",
-                visibility: "visible",
-                position: "absolute",
-                top: "22px", 
-              }}
-            />
+              <img
+                className="animate-bounce"
+                src="https://img.freepik.com/free-vector/cartoon-style-robot-vectorart_78370-4103.jpg?semt=ais_hybrid"
+                alt="Bot"
+                style={{
+                  width: "75px",
+                  height: "auto",
+                  visibility: "visible",
+                  position: "absolute",
+                  top: "22px",
+                }}
+              />
             </div>
             <form
               style={{
                 display: isSignUp ? "none" : "block",
                 marginTop: "30px",
               }}
+              onSubmit={handleSubmit}
             >
-              <TextField id="outlined-basic" label="Username" variant="outlined" sx={{ m: 1, width: '250px', marginTop : '5px', marginBottom : '10px', marginLeft : '25px', marginRight : '5px', }} />
-                <FormControl sx={{ m: 1, width: '250px', marginTop : '5px', marginBottom : '10px', marginLeft : '25px', marginRight : '5px', 
-                 }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-             
-              <div
-                style={{
-                  cursor: "pointer",
-                  display: "block",
-                  padding: "10px",
+              <TextField
+                id="outlined-basic"
+                label="Email"
+                name="email"
+                onChange={handleEmailChange}
+                value={formData.email}
+                variant="outlined"
+                error={!!domainError}
+                helperText={domainError}
+                sx={{
+                  m: 1,
                   width: "250px",
-                  margin: "5px",
+                  marginTop: "5px",
+                  marginBottom: "10px",
                   marginLeft: "25px",
-                  textAlign: "center",
-                  
-                  background: "linear-gradient(to right, rgb(25, 60, 71), rgb(80, 140, 85))",
-                  color: "white",
-                  opacity: 1,
+                  marginRight: "5px",
                 }}
+              />
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: "250px",
+                  marginTop: "5px",
+                  marginBottom: "10px",
+                  marginLeft: "25px",
+                  marginRight: "5px",
+                }}
+                variant="outlined"
               >
-                Log in
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: "250px",
+                  marginTop: "5px",
+                  marginBottom: "10px",
+                  marginLeft: "25px",
+                  marginRight: "5px",
+                }}
+                variant="outlined"
+              >
+                <InputLabel htmlFor="outlined-adornment-confirm-password">
+                  Confirm Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-confirm-password"
+                  name="confirmPassword"
+                  type={showPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Confirm Password"
+                />
+              </FormControl>
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  style={{
+                    backgroundColor: "#053d48",
+                    color: "white",
+                    border: "none",
+                    padding: "10px 20px",
+                    cursor: "pointer",
+                    marginTop: "15px",
+                  }}
+                >
+                  {loading ? "Signing Up..." : "Sign Up"}
+                </button>
               </div>
             </form>
             <form
@@ -250,63 +375,73 @@ const SignUp = () => {
                 marginTop: "30px",
               }}
             >
-              <TextField id="outlined-basic" label="Username" variant="outlined" sx={{ m: 1, width: '250px', marginTop : '5px', marginBottom : '10px', marginLeft : '25px', marginRight : '5px', }} />
-             <FormControl sx={{ m: 1, width: '250px', marginTop : '5px', marginBottom : '10px', marginLeft : '25px', marginRight : '5px',}} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: '250px', marginTop : '5px', marginBottom : '10px', marginLeft : '25px', marginRight : '5px', }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Confirm Password"
-          />
-        </FormControl>
-              <div
-                style={{
-                  cursor: "pointer",
-                  display: "block",
-                  padding: "10px",
+              <TextField
+                id="outlined-basic2"
+                label="Email"
+                name="email"
+                onChange={handleEmailChange}
+                value={formData.email}
+                variant="outlined"
+                error={!!domainError}
+                helperText={domainError}
+                sx={{
+                  m: 1,
                   width: "250px",
+                  marginTop: "5px",
+                  marginBottom: "10px",
                   marginLeft: "25px",
-                  marinLeft : "25px",
-                  textAlign: "center",
-                  
-                  background:" linear-gradient(to right, rgb(80, 140, 85), rgb(25, 60, 71))",
-                  color: "white",
-                  opacity: 1,
+                  marginRight: "5px",
                 }}
+              />
+              <FormControl
+                sx={{
+                  m: 1,
+                  width: "250px",
+                  marginTop: "5px",
+                  marginBottom: "10px",
+                  marginLeft: "25px",
+                  marginRight: "5px",
+                }}
+                variant="outlined"
               >
-                Sign Up
+                <InputLabel htmlFor="outlined-adornment-password2">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password2"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  style={{
+                    backgroundColor: "#053d48",
+                    color: "white",
+                    border: "none",
+                    padding: "10px 20px",
+                    cursor: "pointer",
+                    marginTop: "15px",
+                  }}
+                >
+                  {loading ? "Logging In..." : "Log In"}
+                </button>
               </div>
             </form>
           </div>
@@ -316,5 +451,4 @@ const SignUp = () => {
   );
 };
 
-export default  SignUp 
-;
+export default SignUp;
