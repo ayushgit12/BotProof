@@ -1,11 +1,14 @@
 import numpy as np
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 import pickle
 import torch
 from flask_cors import CORS
+from flask_socketio import SocketIO, emit
+import json
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
+socketio = SocketIO(app, cors_allowed_origins="*")  # Initialize SocketIO
 
 # Load the model
 model = pickle.load(open('mouse_move_cnn.pkl', 'rb'))
@@ -14,19 +17,31 @@ model = pickle.load(open('mouse_move_cnn.pkl', 'rb'))
 def home():
     return jsonify({"message": "hello world"})
 
-@app.route('/mouse', methods=['GET'])
-def mouse():
-    return(request.json)
+
+
+# Store received mouse data
+mouse_data_array = []
 
 
 
+@socketio.on('mouse_data')
+def handle_mouse_data(data):
+    # Append the received data to the array
+    mouse_data_array.append(data)
+
+    # Convert the array of objects to an array of tuples
+    mouse_coordinates = [(item['x'], item['y'], item['timestamp']) for item in mouse_data_array]
+
+    # Create a JSON object with array of tuples
+    json_data = {
+        "mouse_coordinates": mouse_coordinates
+    }
+
+    # Emit the JSON object back to the client (or perform other actions)
+    emit('response', {'message': 'Data received successfully', 'data': json_data})
     
-@app.route("/mouse-data", methods=['POST'])
-def mouse_data():
-    data = request.json
-    print(data)
-    return jsonify({"message": "success"})
-
+    # Print the JSON data as a string
+    print(f"{json.dumps(json_data)}")
 
 @app.route("/predict", methods=['GET'])
 def predict():
@@ -42,16 +57,11 @@ def predict():
         print(preds.squeeze().item())
         
         # Return prediction in response
-
-        return {
-            "prediction": preds.squeeze().item()
-        }
+        return jsonify({"prediction": preds.squeeze().item()})
     
-
     except Exception as e:
         # Handle exceptions and return error message
         return jsonify({"message": str(e)}), 500
-    
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    socketio.run(app, debug=True, port=5000)

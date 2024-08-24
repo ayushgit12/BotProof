@@ -7,7 +7,11 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
+
 import ParticlesBg from "particles-bg";
+
+
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 import { FaUserCircle } from "react-icons/fa";
@@ -61,6 +65,45 @@ const SignUp = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!formData.email || !formData.password) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/users/login",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("response", response);
+      localStorage.setItem("token", response.data.token);
+      toast.success("Login successful!!");
+      setFormData({
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      console.log("success");
+    } catch (error) {
+      console.error("Error logging in user:", error);
+      toast.error("Login failed ! please try again !");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -70,12 +113,7 @@ const SignUp = () => {
     }
 
     if (formData.password !== formData.confirmPassword) {
-      toast.error("password and confirmPassword do not match");
-      setFormData({
-        ...formData,
-        password: "",
-        confirmPassword: "",
-      });
+      toast.error("Password and Confirm Password do not match");
       return;
     }
 
@@ -125,10 +163,10 @@ const SignUp = () => {
       }}
     >
       <ParticlesBg
-        type="circle"
+        type="fountain"
         bg={{ zIndex: 0, position: "absolute", top: 0 }}
       />
-      <Toaster position="top-right" />
+      <Toaster position="bottom-right" />
       <div
       className="rounded-3xl"
         style={{
@@ -166,9 +204,9 @@ const SignUp = () => {
             }}
           >
             <PiUserCircleFill size={80} />
-            <p className="text-3xl my-8">Already a User?</p>
-            <button
-            className="bg-transparent hover:bg-white hover:text-black rounded-xl outline-none focus:outline-none"
+            <p className="text-3xl my-6">Don't have an account?</p>
+            <div
+              className="bg-transparent hover:bg-white hover:text-black rounded-xl outline-none focus:outline-none"
               style={{
                 cursor: "pointer",
                 width: "90px",
@@ -180,8 +218,8 @@ const SignUp = () => {
               }}
               onClick={toggleForm}
             >
-              Log In
-            </button>
+              Sign Up
+            </div>
           </div>
           <div
             style={{
@@ -211,10 +249,11 @@ const SignUp = () => {
               marginLeft: "40px",
             }}
           >
-            <PiUserCirclePlusFill size={80} />
-            <p className="text-3xl my-6">Don't have an account?</p>
-            <div
-              className="bg-transparent hover:bg-white hover:text-black rounded-xl outline-none focus:outline-none"
+            
+            <PiUserCircleFill size={80} />
+            <p className="text-3xl my-8">Already a User?</p>
+            <button
+            className="bg-transparent hover:bg-white hover:text-black rounded-xl outline-none focus:outline-none"
               style={{
                 cursor: "pointer",
                 width: "90px",
@@ -226,8 +265,8 @@ const SignUp = () => {
               }}
               onClick={toggleForm}
             >
-              Sign Up
-            </div>
+              Log In
+            </button>
           </div>
         </div>
         <div
@@ -463,6 +502,7 @@ const SignUp = () => {
               </FormControl>
               <div className="flex justify-center">
                 <button
+                onClick={handleLogin}
                 className="rounded-xl"
                   type="submit"
                   style={{
