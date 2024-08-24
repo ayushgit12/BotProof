@@ -8,9 +8,7 @@ import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-
 import ParticlesBg from "particles-bg";
-
 
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
@@ -103,7 +101,6 @@ const SignUp = () => {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -168,7 +165,7 @@ const SignUp = () => {
       />
       <Toaster position="bottom-right" />
       <div
-      className="rounded-3xl"
+        className="rounded-3xl"
         style={{
           background:
             "linear-gradient(to right, rgb(25, 60, 71), rgb(80, 140, 85), rgb(25, 60, 71))",
@@ -249,11 +246,10 @@ const SignUp = () => {
               marginLeft: "40px",
             }}
           >
-            
             <PiUserCircleFill size={80} />
             <p className="text-3xl my-8">Already a User?</p>
             <button
-            className="bg-transparent hover:bg-white hover:text-black rounded-xl outline-none focus:outline-none"
+              className="bg-transparent hover:bg-white hover:text-black rounded-xl outline-none focus:outline-none"
               style={{
                 cursor: "pointer",
                 width: "90px",
@@ -270,7 +266,7 @@ const SignUp = () => {
           </div>
         </div>
         <div
-        className="rounded-3xl"
+          className="rounded-3xl"
           style={{
             marginLeft: isSignUp ? "275px" : "25px",
             backgroundColor: "white",
@@ -293,7 +289,7 @@ const SignUp = () => {
             }}
           ></div>
           <div
-          className="rounded-3xl"
+            className="rounded-3xl"
             style={{
               zIndex: 2,
               position: "relative",
@@ -340,10 +336,7 @@ const SignUp = () => {
                   marginRight: "5px",
                 }}
                 InputProps={{
-                  style: { color: "black" ,
-                    fontSize: "15px",
-                  },
-                  
+                  style: { color: "black", fontSize: "15px" },
                 }}
               />
               <FormControl
@@ -418,7 +411,7 @@ const SignUp = () => {
               </FormControl>
               <div className="flex justify-center">
                 <button
-                className="rounded-xl"
+                  className="rounded-xl"
                   type="submit"
                   style={{
                     backgroundColor: "#053d48",
@@ -457,10 +450,7 @@ const SignUp = () => {
                   marginRight: "5px",
                 }}
                 InputProps={{
-                  style: { color: "black" ,
-                    fontSize: "15px",
-                  },
-                  
+                  style: { color: "black", fontSize: "15px" },
                 }}
               />
               <FormControl
@@ -496,14 +486,12 @@ const SignUp = () => {
                     </InputAdornment>
                   }
                   label="Password"
-                 
-                  
                 />
               </FormControl>
               <div className="flex justify-center">
                 <button
-                onClick={handleLogin}
-                className="rounded-xl"
+                  onClick={handleLogin}
+                  className="rounded-xl"
                   type="submit"
                   style={{
                     backgroundColor: "#053d48",

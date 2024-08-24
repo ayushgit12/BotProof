@@ -23,13 +23,13 @@ export const registerUser = async (req, res) => {
     });
     await user.save();
 
-    const token = await new Token({
-      userId: user._id,
-      token: crypto.randomBytes(32).toString("hex"),
-    }).save();
-    console.log(`token while registering is : ${token}`);
-    const url = `${process.env.BASE_URL}/users/${user.id}/verify/${token.token}`;
-    await sendEmail(user.email, "Verify Email", url);
+    // const token = await new Token({
+    //   userId: user._id,
+    //   token: crypto.randomBytes(32).toString("hex"),
+    // }).save();
+    // console.log(`token while registering is : ${token}`);
+    // const url = `${process.env.BASE_URL}/users/${user.id}/verify/${token.token}`;
+    // await sendEmail(user.email, "Verify Email", url);
 
     res.status(201).json({
       userId: user._id,
@@ -45,20 +45,18 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   console.log(`email is : ${email}`);
-  console.log (`password is : ${password}`);
+  console.log(`password is : ${password}`);
 
   try {
-
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-    
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-
 
     const token = generateToken(user._id);
 
@@ -71,4 +69,4 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
-}
+};

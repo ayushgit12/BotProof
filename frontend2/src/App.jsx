@@ -15,6 +15,7 @@ import CaptchaTest from "./components/Captcha.jsx";
 import GlobalMouseTracker from "./components/globalMouseData.jsx";
 import CombinedVerificationDemo from "./components/combined.jsx";
 import Contact from "./components/contact.jsx";
+import Home from "./components/home.jsx";
 // import './App.css'
 import SignUp from "./components/signup.jsx";
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -24,7 +25,7 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 
 const App = () => {
   const [landingPageData, setLandingPageData] = useState({});
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     setLandingPageData(JsonData);
   }, []);
@@ -52,6 +53,12 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/comb" element={<CombinedVerificationDemo />} />
+          {/* {token && <Route path="/home" element={<Home />} />} */}
+          {token ? (
+            <Route path="/home" element={<Home />} />
+          ) : (
+            <Route path="/home" element={<SignUp />} />
+          )}
         </Routes>
         <Footer />
       </div>
