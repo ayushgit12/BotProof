@@ -8,8 +8,9 @@ const GlobalMouseTracker = () => {
     const handleMouseMove = (event) => {
       const { clientX, clientY } = event;
       const mouseData = { x: clientX, y: clientY, timestamp: Date.now() };
-
+      console.log("Mouse Data: ", mouseData);
       setMouseTrail((prevTrail) => [...prevTrail, mouseData]);
+
 
       sendMouseDataToAPI(mouseData);
     };

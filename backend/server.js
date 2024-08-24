@@ -15,12 +15,24 @@ app.use(
 
 app.use(express.json());
 
-app.post("/mouse-data", (req, res) => {
-  const mouseData = req.body;
-  console.log("Received mouse data:", mouseData);
+// const mouse={
+//   x:0,
+//   y:0,
+//   timestamp:0
+// };
 
-  res.status(200).json({ message: "Mouse data received successfully" });
-});
+
+// app.get("/mouse", (req, res) => {
+//   res.json(mouse);
+// })
+
+// app.post("/mouse-data", (req, res) => {
+//   const mouseData = req.body;
+//   console.log("Received mouse data:", mouseData);
+
+//   res.status(200).json({ message: "Mouse data received successfully" });
+// });
+
 app.use("/api", apiRouter);
 
 mongoose

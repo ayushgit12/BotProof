@@ -5,7 +5,7 @@ import torch
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Load the model
 model = pickle.load(open('mouse_move_cnn.pkl', 'rb'))
@@ -14,11 +14,19 @@ model = pickle.load(open('mouse_move_cnn.pkl', 'rb'))
 def home():
     return jsonify({"message": "hello world"})
 
+@app.route('/mouse', methods=['GET'])
+def mouse():
+    return(request.json)
 
-@app.route('/send-data', methods=['GET'])
-def send_data():
-    data = request.get_json()
+
+
     
+@app.route("/mouse-data", methods=['POST'])
+def mouse_data():
+    data = request.json
+    print(data)
+    return jsonify({"message": "success"})
+
 
 @app.route("/predict", methods=['GET'])
 def predict():
@@ -46,4 +54,4 @@ def predict():
     
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
