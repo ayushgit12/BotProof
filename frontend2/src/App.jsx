@@ -14,6 +14,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CaptchaTest from "./components/Captcha.jsx";
 import GlobalMouseTracker from "./components/globalMouseData.jsx";
 import CombinedVerificationDemo from "./components/combined.jsx";
+import Contact from "./components/contact.jsx";
 // import './App.css'
 import SignUp from "./components/signup.jsx";
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -49,7 +50,7 @@ const App = () => {
           />
           <Route path="/captcha-test" element={<CaptchaTest />} />
           <Route path="/signup" element={<SignUp />} />
-
+          <Route path="/contact" element={<Contact />} />
           <Route path="/comb" element={<CombinedVerificationDemo />} />
         </Routes>
         <Footer />
