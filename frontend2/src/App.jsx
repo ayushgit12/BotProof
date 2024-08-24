@@ -1,19 +1,21 @@
-import { useState, useEffect } from 'react'
-import { Navigation } from './components/navigation'
-import { Header } from './components/header'
-import { Features } from './components/features'
-import { About } from './components/about'
-import { Services } from './components/services'
-import { Gallery } from './components/gallery'
-import { Testimonials } from './components/testimonials'
-import { Footer } from './components/footer'
-import JsonData from './data/data.json'
-import SmoothScroll from 'smooth-scroll'
-import React from 'react'
-import {BrowserRouter ,Routes,Route} from 'react-router-dom'
-import CaptchaTest from './components/Captcha.jsx'
+import { useState, useEffect } from "react";
+import { Navigation } from "./components/navigation";
+import { Header } from "./components/header";
+import { Features } from "./components/features";
+import { About } from "./components/about";
+import { Services } from "./components/services";
+import { Gallery } from "./components/gallery";
+import { Testimonials } from "./components/testimonials";
+import { Footer } from "./components/footer";
+import JsonData from "./data/data.json";
+import SmoothScroll from "smooth-scroll";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CaptchaTest from "./components/Captcha.jsx";
+import GlobalMouseTracker from "./components/globalMouseData.jsx";
+import CombinedVerificationDemo from "./components/combined.jsx";
 // import './App.css'
-import SignUp from './components/signup.jsx'
+import SignUp from "./components/signup.jsx";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -28,6 +30,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <GlobalMouseTracker />
       <div>
         <Navigation />
         <Routes>
@@ -45,7 +48,9 @@ const App = () => {
             }
           />
           <Route path="/captcha-test" element={<CaptchaTest />} />
-            <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
+
+          <Route path="/comb" element={<CombinedVerificationDemo />} />
         </Routes>
         <Footer />
       </div>
