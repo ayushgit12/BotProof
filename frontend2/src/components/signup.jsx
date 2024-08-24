@@ -9,9 +9,10 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ParticlesBg from "particles-bg";
 import axios from "axios";
-// import { useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
+import { FaUserCircle } from "react-icons/fa";
+import { PiUserCirclePlusFill } from "react-icons/pi";
+import { PiUserCircleFill } from "react-icons/pi";
 // import { AnimatePresence } from "framer-motion";
 
 const allowedDomainExtensions = [".com", ".in", ".edu", ".org", ".net", ".gov"];
@@ -26,9 +27,7 @@ const SignUp = () => {
   });
   const [domainError, setDomainError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState("");
   // const toast = useToast();
-  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -65,8 +64,18 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.email || !formData.password || !formData.confirmPassword) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       toast.error("password and confirmPassword do not match");
+      setFormData({
+        ...formData,
+        password: "",
+        confirmPassword: "",
+      });
       return;
     }
 
@@ -82,8 +91,12 @@ const SignUp = () => {
           },
         }
       );
-      setMsg(response.data.mssg);
-      toast.success("registration succesful!!");
+      toast.success("registration successful!!");
+      setFormData({
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
       console.log("success");
 
       toggleForm();
@@ -97,6 +110,7 @@ const SignUp = () => {
 
   return (
     <div
+      className="rounded-xl"
       style={{
         margin: "0",
         padding: "0",
@@ -114,8 +128,9 @@ const SignUp = () => {
         type="circle"
         bg={{ zIndex: 0, position: "absolute", top: 0 }}
       />
-      <Toaster />
+      <Toaster position="top-right" />
       <div
+      className="rounded-3xl"
         style={{
           background:
             "linear-gradient(to right, rgb(25, 60, 71), rgb(80, 140, 85), rgb(25, 60, 71))",
@@ -150,13 +165,14 @@ const SignUp = () => {
               marginRight: "40px",
             }}
           >
-            <p>Have an account?</p>
-            <div
+            <PiUserCircleFill size={80} />
+            <p className="text-3xl my-8">Already a User?</p>
+            <button
+            className="bg-transparent hover:bg-white hover:text-black rounded-xl outline-none focus:outline-none"
               style={{
                 cursor: "pointer",
-                backgroundColor: "transparent",
                 width: "90px",
-                padding: "10px 15px",
+                padding: "6px 10px",
                 border: "1px solid white",
                 fontSize: "16px",
                 opacity: 1,
@@ -165,7 +181,7 @@ const SignUp = () => {
               onClick={toggleForm}
             >
               Log In
-            </div>
+            </button>
           </div>
           <div
             style={{
@@ -195,14 +211,14 @@ const SignUp = () => {
               marginLeft: "40px",
             }}
           >
-            <p className="text-3xl mb-3">Don't have an account?</p>
+            <PiUserCirclePlusFill size={80} />
+            <p className="text-3xl my-6">Don't have an account?</p>
             <div
-              className="rounded-xl"
+              className="bg-transparent hover:bg-white hover:text-black rounded-xl outline-none focus:outline-none"
               style={{
                 cursor: "pointer",
-                backgroundColor: "transparent",
                 width: "90px",
-                padding: "10px 12px",
+                padding: "6px 10px",
                 border: "1px solid white",
                 fontSize: "16px",
                 opacity: 1,
@@ -215,6 +231,7 @@ const SignUp = () => {
           </div>
         </div>
         <div
+        className="rounded-3xl"
           style={{
             marginLeft: isSignUp ? "275px" : "25px",
             backgroundColor: "white",
@@ -237,6 +254,7 @@ const SignUp = () => {
             }}
           ></div>
           <div
+          className="rounded-3xl"
             style={{
               zIndex: 2,
               position: "relative",
@@ -281,6 +299,12 @@ const SignUp = () => {
                   marginBottom: "10px",
                   marginLeft: "25px",
                   marginRight: "5px",
+                }}
+                InputProps={{
+                  style: { color: "black" ,
+                    fontSize: "15px",
+                  },
+                  
                 }}
               />
               <FormControl
@@ -355,6 +379,7 @@ const SignUp = () => {
               </FormControl>
               <div className="flex justify-center">
                 <button
+                className="rounded-xl"
                   type="submit"
                   style={{
                     backgroundColor: "#053d48",
@@ -392,6 +417,12 @@ const SignUp = () => {
                   marginLeft: "25px",
                   marginRight: "5px",
                 }}
+                InputProps={{
+                  style: { color: "black" ,
+                    fontSize: "15px",
+                  },
+                  
+                }}
               />
               <FormControl
                 sx={{
@@ -426,10 +457,13 @@ const SignUp = () => {
                     </InputAdornment>
                   }
                   label="Password"
+                 
+                  
                 />
               </FormControl>
               <div className="flex justify-center">
                 <button
+                className="rounded-xl"
                   type="submit"
                   style={{
                     backgroundColor: "#053d48",

@@ -1,8 +1,19 @@
 import React from 'react'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react'
 
 export const About = (props) => {
+
+
+  useEffect(() => {
+    AOS.init({
+      once: true,
+      duration: 1000,
+    });
+})
   return (
-    <div id='about'>
+    <div id='about' data-aos="fade-left">
       <div className='container'>
         <div className='row'>
           <div className='col-xs-12 col-md-6'>

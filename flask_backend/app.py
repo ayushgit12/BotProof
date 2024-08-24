@@ -14,6 +14,12 @@ model = pickle.load(open('mouse_move_cnn.pkl', 'rb'))
 def home():
     return jsonify({"message": "hello world"})
 
+
+@app.route('/send-data', methods=['GET'])
+def send_data():
+    data = request.get_json()
+    
+
 @app.route("/predict", methods=['GET'])
 def predict():
     try:
@@ -37,6 +43,7 @@ def predict():
     except Exception as e:
         # Handle exceptions and return error message
         return jsonify({"message": str(e)}), 500
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

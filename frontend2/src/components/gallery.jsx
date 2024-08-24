@@ -34,7 +34,7 @@ export const Gallery = props => {
       <div className="container">
         <div className="section-title">
         <h2 className='text-6xl font-semibold'>Gallery</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed dapibus leonec.</p>
+          <p>Some clips to give you an idea about what we do.</p>
         </div>
         <div className="row">
           <div className="portfolio-items">
