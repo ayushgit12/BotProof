@@ -53,7 +53,6 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/comb" element={<CombinedVerificationDemo />} />
         </Routes>
-        <Footer />
       </div>
     </BrowserRouter>
   );

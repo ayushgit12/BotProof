@@ -7,6 +7,9 @@ const socket = io('http://127.0.0.1:5000', {
 });
 
 const GlobalMouseTracker = () => {
+
+
+
   useEffect(() => {
     const handleMouseMove = (event) => {
       const { clientX, clientY } = event;
@@ -15,6 +18,7 @@ const GlobalMouseTracker = () => {
       
       // Send data to the Socket.io server
       socket.emit('mouse_data', mouseData);
+
     };
 
     window.addEventListener('mousemove', handleMouseMove);

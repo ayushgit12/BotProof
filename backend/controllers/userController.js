@@ -23,13 +23,13 @@ export const registerUser = async (req, res) => {
     });
     await user.save();
 
-    const token = await new Token({
-      userId: user._id,
-      token: crypto.randomBytes(32).toString("hex"),
-    }).save();
-    console.log(`token while registering is : ${token}`);
-    const url = `${process.env.BASE_URL}/users/${user.id}/verify/${token.token}`;
-    await sendEmail(user.email, "Verify Email", url);
+    // const token = await new Token({
+    //   userId: user._id,
+    //   token: crypto.randomBytes(32).toString("hex"),
+    // }).save();
+    // console.log(`token while registering is : ${token}`);
+    // const url = `${process.env.BASE_URL}/users/${user.id}/verify/${token.token}`;
+    // await sendEmail(user.email, "Verify Email", url);
 
     res.status(201).json({
       userId: user._id,
