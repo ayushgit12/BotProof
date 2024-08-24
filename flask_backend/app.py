@@ -2,16 +2,18 @@ import numpy as np
 from flask import Flask, request, jsonify
 import pickle
 import torch
+import albumentations as A
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import json
+from albumentations.pytorch import ToTensorV2
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")  # Initialize SocketIO
 
 # Load the model
-model = pickle.load(open('mouse_move_cnn.pkl', 'rb'))
+model = pickle.load(open('sih_bot_detection.sav', 'rb'))
 
 @app.route('/')
 def home():
@@ -41,12 +43,43 @@ def handle_mouse_data(data):
     emit('response', {'message': 'Data received successfully', 'data': json_data})
     
     # Print the JSON data as a string
-    print(f"{json.dumps(json_data)}")
+    # print(f"{json.dumps(json_data)}")
+
+    a = json_data['mouse_coordinates']
+    print(a)
+
+    
+    train_transform = A.Compose([A.Resize(height=224, width=224),
+    ToTensorV2(),
+    ])
+    xs = []
+    ys = []
+    for coordinate in a:
+        xs.append(coordinate[0])
+        ys.append(coordinate[1])
+    im = np.zeros((max(xs), max(ys)))
+    t_0 = a[0][2]
+    for j,coord in enumerate(a):
+        im[coord[0]-1][coord[1]-1] = (coord[2] - t_0)    
+        t_0 = coord[2]
+    im = np.stack((im,)*3, axis = -1)
+    im = train_transform(image = im)['image']
+    im = torch.tensor(im).to(torch.float32)
+    # im = (im==0)*(255.0)
+    with torch.inference_mode():
+        preds = model(im.unsqueeze(0))
+        probs = torch.nn.functional.sigmoid(preds) 
+    print(probs.squeeze().item())
+    emit('response', {'message': 'Data received successfully','prediction': probs.squeeze().item()})
+
+
+
 
 @app.route("/predict", methods=['GET'])
 def predict():
     try:
         # Assuming batch.pt contains tensors and is loaded correctly
+        data = request.get_json()
         images, labels = torch.load("batch.pt")
         
         # Dummy prediction for demonstration
@@ -56,7 +89,7 @@ def predict():
         preds = torch.nn.functional.sigmoid(logits)
         print(preds.squeeze().item())
         
-        # Return prediction in response
+        # Return prediction in respons
         return jsonify({"prediction": preds.squeeze().item()})
     
     except Exception as e:

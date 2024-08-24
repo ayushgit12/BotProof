@@ -60,7 +60,6 @@ const App = () => {
             <Route path="/home" element={<SignUp />} />
           )}
         </Routes>
-        <Footer />
       </div>
     </BrowserRouter>
   );
