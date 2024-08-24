@@ -69,7 +69,8 @@ def handle_mouse_data(data):
     with torch.inference_mode():
         preds = model(im.unsqueeze(0))
         probs = torch.nn.functional.sigmoid(preds) 
-    print(probs.squeeze())
+    print(probs.squeeze().item())
+    emit('response', {'message': 'Data received successfully','prediction': probs.squeeze().item()})
 
 
 

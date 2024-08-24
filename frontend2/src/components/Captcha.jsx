@@ -37,7 +37,7 @@ class CaptchaTest extends Component {
                         type="text"
                     />
                     <button
-                        className="text-2xl captcha-button mt-10 bg-blue-600 text-white p-6 rounded-lg w-full text-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="captcha-button mt-10 bg-blue-600 text-white p-6 rounded-lg w-full text-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         onClick={this.doSubmit}>
                         Submit
                     </button>
