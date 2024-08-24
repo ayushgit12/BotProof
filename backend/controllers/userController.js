@@ -4,7 +4,6 @@ import { generateToken } from "../middleware/authMidlleware.js";
 
 import Token from "../models/token.js";
 import crypto from "crypto";
-import sendEmail from "../utils/sendEmail.js";
 
 export const registerUser = async (req, res) => {
   const { email, password } = req.body;
@@ -45,37 +44,25 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log(`email is : ${email}`);
+  console.log (`password is : ${password}`);
 
   try {
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-
+    
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    if (!user.verified) {
-      let token = await Token.findOne({ userId: user._id });
-      if (!token) {
-        token = await new Token({
-          userId: user._id,
-          token: crypto.randomBytes(32).toString("hex"),
-        }).save();
-        const url = `${process.env.BASE_URL}users/${user.id}/verify/${token.token}`;
-        await sendEmail(user.email, "Verify Email", url);
-      }
-
-      return res
-        .status(400)
-        .send({ message: "An Email sent to your account please verify" });
-    }
 
     const token = generateToken(user._id);
 
-    res.json({
+    return res.json({
       _id: user._id,
 
       email: user.email,
@@ -84,35 +71,4 @@ export const loginUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
-};
-
-export const emailVerification = async (req, res) => {
-  try {
-    const user = await User.findOne({ _id: req.params.id });
-    console.log(`email verify user is :${user}`);
-    if (!user)
-      return res
-        .status(400)
-        .send({ message: "Invalid link due to absence of user " });
-
-    const token = await Token.findOne({
-      userId: user._id,
-      token: req.params.token,
-    });
-    console.log(`email verify token is :${token}`);
-    if (!token)
-      return res
-        .status(400)
-        .send({ message: "Invalid link due to absence of token " });
-
-    user.verified = true;
-    await user.save();
-
-    // await Token.deleteOne({ _id: token._id });
-
-    res.status(200).send({ message: "Email verified successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Internal Server Error! well that sucks" });
-  }
-};
+}
