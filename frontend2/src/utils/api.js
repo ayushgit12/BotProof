@@ -8,7 +8,7 @@ export const sendMouseDataToAPI = (data) => {
       },
     })
     .then((response) => {
-      console.log("Success:", response.data);
+      //   console.log("Success:", response.data);
     })
     .catch((error) => {
       console.error("Error:", error);

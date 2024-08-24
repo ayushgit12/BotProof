@@ -1,6 +1,9 @@
 import React from "react";
 
 export const Navigation = (props) => {
+  const token = localStorage.getItem("token");
+  console.log(`token is ${token}`);
+
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -27,6 +30,12 @@ export const Navigation = (props) => {
           id="bs-example-navbar-collapse-1"
         >
           <ul className="nav navbar-nav navbar-right">
+            <li>
+              <a href="/home" className="page-scroll">
+                home
+              </a>
+            </li>
+
             <li>
               <a href="/comb" className="page-scroll">
                 Visuals
