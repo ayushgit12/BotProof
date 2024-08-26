@@ -64,7 +64,7 @@ export const Gallery = () => {
   }, []);
 
   const videoStyle1 = {
-    transform: isHovered1 ? "scale(1.05)" : "scale(1)",
+    transform: isHovered1 ? "scale(1.1)" : "scale(1)",
     transition: "transform 0.3s ease-in-out",
     borderRadius: "32px",
     height: "500px",
@@ -73,7 +73,7 @@ export const Gallery = () => {
   };
 
   const videoStyle2 = {
-    transform: isHovered2 ? "scale(1.05)" : "scale(1)",
+    transform: isHovered2 ? "scale(1.1)" : "scale(1)",
     transition: "transform 0.3s ease-in-out",
     borderRadius: "32px",
     height: "500px",

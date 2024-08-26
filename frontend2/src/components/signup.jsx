@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -15,8 +15,12 @@ import { toast, Toaster } from "react-hot-toast";
 import { FaUserCircle } from "react-icons/fa";
 import { PiUserCirclePlusFill } from "react-icons/pi";
 import { PiUserCircleFill } from "react-icons/pi";
+import io from "socket.io-client";
 // import { AnimatePresence } from "framer-motion";
-
+const socket = io("http://127.0.0.1:5000", {
+  transports: ["websocket"], // Use WebSocket transport
+  withCredentials: true, // Send credentials (cookies) with requests
+});
 const allowedDomainExtensions = [".com", ".in", ".edu", ".org", ".net", ".gov"];
 
 const SignUp = () => {
@@ -30,6 +34,19 @@ const SignUp = () => {
   const [domainError, setDomainError] = useState("");
   const [loading, setLoading] = useState(false);
   // const toast = useToast();
+  const [responseData, setResponseData] = React.useState("");
+
+  useEffect(() => {
+    const checkAndRedirect = () => {
+      const storedValue = localStorage.getItem("prediction");
+
+      if (storedValue && parseFloat(storedValue) >= 0.7) {
+        window.location.href = "/captcha-test";
+      }
+    };
+
+    checkAndRedirect();
+  }, []);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -93,6 +110,7 @@ const SignUp = () => {
         confirmPassword: "",
       });
       console.log("success");
+      window.location.href = "/home";
     } catch (error) {
       console.error("Error logging in user:", error);
       toast.error("Login failed ! please try again !");
@@ -142,6 +160,32 @@ const SignUp = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      const { clientX, clientY } = event;
+      const mouseData = { x: clientX, y: clientY, timestamp: Date.now() };
+
+      console.log("Mouse Data: ", mouseData);
+
+      // Send data to the Socket.io server
+
+      socket.emit("mouse_data", mouseData);
+
+      socket.on("response1", (data) => {
+        // console.log('Data received from server:', data);
+        setResponseData(data.data); // Store the received data in state
+        // if(localStorage.getItem('prediction') === null){
+        localStorage.setItem("prediction", data?.prediction); // Store the received data in local storage
+        // }
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   return (
     <div

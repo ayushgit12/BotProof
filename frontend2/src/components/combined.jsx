@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Typography, Grid, Paper } from "@mui/material";
+import { Box, Typography, Grid, Paper, Button } from "@mui/material";
 import ParticlesBg from "particles-bg";
+
 const CombinedVerificationDemo = () => {
   const [trail, setTrail] = useState([]);
   const [trackedData, setTrackedData] = useState([]);
@@ -28,6 +29,11 @@ const CombinedVerificationDemo = () => {
     ]);
   };
 
+  const handleClear = () => {
+    setTrackedData([]);
+    setTrail([]);
+  };
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -42,7 +48,7 @@ const CombinedVerificationDemo = () => {
       </Typography>
 
       <Typography variant="h4" sx={{ marginBottom: 12 }}>
-        <b> Mouse Movement Tracking Demo</b>
+        <b>Mouse Movement Tracking Demo</b>
       </Typography>
 
       <Grid container spacing={6} justifyContent="center">
@@ -94,16 +100,18 @@ const CombinedVerificationDemo = () => {
               height: "400px",
               overflowY: "auto",
               backgroundColor: "#f5f5f5",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             <Typography
               variant="h6"
-              className="relative z-10 bg-gray-50  left-0 top-0"
+              className="relative z-10 bg-gray-50 left-0 top-0"
               sx={{ marginBottom: 2 }}
             >
               Mouse Coordinates
             </Typography>
-            <ul style={{ listStyleType: "none", padding: 0 }}>
+            <ul style={{ listStyleType: "none", padding: 0, flexGrow: 1 }}>
               {trackedData.map((data, index) => (
                 <li key={index} style={{ marginBottom: "5px" }}>
                   {data.type} - Position: (X: {data.position.x}, Y:{" "}
@@ -111,6 +119,20 @@ const CombinedVerificationDemo = () => {
                 </li>
               ))}
             </ul>
+            {trackedData.length > 0 && (
+              <Button
+                variant="contained"
+                onClick={handleClear}
+                sx={{ alignSelf: "center", marginTop: 2 }}
+                style={{
+                  backgroundColor: "white",
+                  color: "black",
+                  hover: { backgroundColor: "black", color: "white" },
+                }}
+              >
+                Clear
+              </Button>
+            )}
           </Paper>
         </Grid>
       </Grid>

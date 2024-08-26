@@ -7,27 +7,14 @@ const socket = io("http://127.0.0.1:5000", {
 });
 
 const GlobalMouseTracker = () => {
-
-  const [responseData, setResponseData] = React.useState("")
-
   useEffect(() => {
     const handleMouseMove = (event) => {
       const { clientX, clientY } = event;
       const mouseData = { x: clientX, y: clientY, timestamp: Date.now() };
+      console.log("Mouse Data: ", mouseData);
 
-      console.log('Mouse Data: ', mouseData);
-      
       // Send data to the Socket.io server
-      socket.emit('mouse_data', mouseData);
-
-
-      socket.on('response', (data) => {
-        console.log('Data received from server:', data);
-        setResponseData(data.data); // Store the received data in state
-        localStorage.setItem('responseData', data?.prediction); // Store the received data in local storage
-        
-      });
-
+      socket.emit("mouse_data", mouseData);
     };
 
     window.addEventListener("mousemove", handleMouseMove);

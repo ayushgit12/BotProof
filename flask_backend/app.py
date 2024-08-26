@@ -13,7 +13,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 socketio = SocketIO(app, cors_allowed_origins="*")  # Initialize SocketIO
 
 # Load the model
-model = pickle.load(open('sih_bot_detection.sav', 'rb'))
+model = pickle.load(open('sih_bot_detection3.pkl', 'rb'))
 
 @app.route('/')
 def home():
@@ -48,6 +48,9 @@ def handle_mouse_data(data):
     a = json_data['mouse_coordinates']
     print(a)
 
+    # if(a._len_() < 10):
+    #     return    
+
     
     train_transform = A.Compose([A.Resize(height=224, width=224),
     ToTensorV2(),
@@ -70,7 +73,7 @@ def handle_mouse_data(data):
         preds = model(im.unsqueeze(0))
         probs = torch.nn.functional.sigmoid(preds) 
     print(probs.squeeze().item())
-    emit('response', {'message': 'Data received successfully','prediction': probs.squeeze().item()})
+    emit('response1', {'message': 'Data received successfully','prediction': probs.squeeze().item()})
 
 
 

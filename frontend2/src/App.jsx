@@ -16,6 +16,7 @@ import GlobalMouseTracker from "./components/globalMouseData.jsx";
 import CombinedVerificationDemo from "./components/combined.jsx";
 import Contact from "./components/contact.jsx";
 import Home from "./components/home.jsx";
+import { useLocation } from "react-router-dom";
 // import './App.css'
 import SignUp from "./components/signup.jsx";
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -26,13 +27,15 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 const App = () => {
   const [landingPageData, setLandingPageData] = useState({});
   const token = localStorage.getItem("token");
+  const mouse = localStorage.getItem("responseData");
+  const a = token;
   useEffect(() => {
     setLandingPageData(JsonData);
   }, []);
 
   return (
     <BrowserRouter>
-      <GlobalMouseTracker />
+      {/* <GlobalMouseTracker /> */}
       <div>
         <Navigation />
         <Routes>
@@ -54,7 +57,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/comb" element={<CombinedVerificationDemo />} />
           {/* {token && <Route path="/home" element={<Home />} />} */}
-          {token ? (
+          {a ? (
             <Route path="/home" element={<Home />} />
           ) : (
             <Route path="/home" element={<SignUp />} />
