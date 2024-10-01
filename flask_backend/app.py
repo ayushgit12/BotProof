@@ -46,7 +46,7 @@ def handle_mouse_data(data):
     # print(f"{json.dumps(json_data)}")
 
     a = json_data['mouse_coordinates']
-    print(a)
+    # print(a)
 
     # if(a._len_() < 10):
     #     return    

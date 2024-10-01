@@ -6,7 +6,7 @@ dotenv.config();
 import apiRouter from "./routes/apiRouter.js";
 const port = process.env.PORT;
 const app = express();
-
+const path = require("path");
 app.use(
   cors({
     origin: "*",
@@ -20,7 +20,11 @@ app.use(express.json());
 //   y:0,
 //   timestamp:0
 // };
+app.use(express.static(path.join(__dirname, "build")));
 
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 // app.get("/mouse", (req, res) => {
 //   res.json(mouse);

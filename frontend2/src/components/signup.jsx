@@ -17,7 +17,7 @@ import { PiUserCirclePlusFill } from "react-icons/pi";
 import { PiUserCircleFill } from "react-icons/pi";
 import io from "socket.io-client";
 // import { AnimatePresence } from "framer-motion";
-const socket = io("http://127.0.0.1:5000", {
+const socket = io("https://sih-again-1.onrender.com", {
   transports: ["websocket"], // Use WebSocket transport
   withCredentials: true, // Send credentials (cookies) with requests
 });
@@ -92,7 +92,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/users/login",
+        " https://sih-again.onrender.com/api/users/login",
         formData,
         {
           headers: {
@@ -136,7 +136,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/users/register",
+        "https://sih-again.onrender.com/api/users/register",
         formData,
         {
           headers: {
