@@ -25,7 +25,7 @@ This project is designed to predict bot activity using mouse movement patterns c
 
 2. Start frontend
    ```bash
-   cd frontend
+   cd frontend2
    npm i
    npm run dev
    ```
