@@ -28,8 +28,13 @@ mouse_data_array = []
 
 @socketio.on('mouse_data')
 def handle_mouse_data(data):
-    # Append the received data to the array
+    # Append the received data to the arr
+
+    if(data == 'reload'):
+        mouse_data_array.clear()
+        return
     mouse_data_array.append(data)
+    print(mouse_data_array)
 
     # Convert the array of objects to an array of tuples
     mouse_coordinates = [(item['x'], item['y'], item['timestamp']) for item in mouse_data_array]
@@ -72,32 +77,17 @@ def handle_mouse_data(data):
     with torch.inference_mode():
         preds = model(im.unsqueeze(0))
         probs = torch.nn.functional.sigmoid(preds) 
-    print(probs.squeeze().item())
+    # print("HI")
+    print(probs.squeeze().item() , "\n\n\n\n\n\n")
     emit('response1', {'message': 'Data received successfully','prediction': probs.squeeze().item()})
 
 
+    emit("hi", {"message": "Hello World"})
 
 
-@app.route("/predict", methods=['GET'])
-def predict():
-    try:
-        # Assuming batch.pt contains tensors and is loaded correctly
-        data = request.get_json()
-        images, labels = torch.load("batch.pt")
-        
-        # Dummy prediction for demonstration
-        # Replace with your actual prediction logic
-        img = images[0].to(torch.float32)
-        logits = model(img.unsqueeze(0))
-        preds = torch.nn.functional.sigmoid(logits)
-        print(preds.squeeze().item())
-        
-        # Return prediction in respons
-        return jsonify({"prediction": preds.squeeze().item()})
-    
-    except Exception as e:
-        # Handle exceptions and return error message
-        return jsonify({"message": str(e)}), 500
+
+
+
 
 if __name__ == "__main__":
     socketio.run(app, debug=True, port=5000)

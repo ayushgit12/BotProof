@@ -12,18 +12,19 @@ import ParticlesBg from "particles-bg";
 
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
-import { FaUserCircle } from "react-icons/fa";
-import { PiUserCirclePlusFill } from "react-icons/pi";
 import { PiUserCircleFill } from "react-icons/pi";
 import io from "socket.io-client";
 // import { AnimatePresence } from "framer-motion";
-const socket = io("https://sih-again-1.onrender.com", {
+const socket = io("http://127.0.0.1:5000", {
   transports: ["websocket"], // Use WebSocket transport
   withCredentials: true, // Send credentials (cookies) with requests
 });
 const allowedDomainExtensions = [".com", ".in", ".edu", ".org", ".net", ".gov"];
 
 const SignUp = () => {
+
+  const [showPopup, setShowPopup] = useState(false); // Track popup visibility
+  const [prediction, setPrediction] = useState(localStorage.getItem("prediction") || null);
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -166,7 +167,7 @@ const SignUp = () => {
       const { clientX, clientY } = event;
       const mouseData = { x: clientX, y: clientY, timestamp: Date.now() };
 
-      console.log("Mouse Data: ", mouseData);
+      // console.log("Mouse Data: ", mouseData);
 
       // Send data to the Socket.io server
 
@@ -175,17 +176,35 @@ const SignUp = () => {
       socket.on("response1", (data) => {
         // console.log('Data received from server:', data);
         setResponseData(data.data); // Store the received data in state
+        setPrediction(data?.prediction);
         // if(localStorage.getItem('prediction') === null){
         localStorage.setItem("prediction", data?.prediction); // Store the received data in local storage
         // }
       });
     };
-    window.addEventListener("mousemove", handleMouseMove);
+    const handleReload = () => {
 
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      // Send reload data to the server
+      socket.emit("mouse_data", "reload");
     };
+ 
+     window.addEventListener("mousemove", handleMouseMove);
+     window.addEventListener("load", handleReload); // Send "reload" event on load
+     window.addEventListener("beforeunload", handleReload); // Trigger before page unload
+ 
+ 
+     return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("load", handleReload);
+      window.removeEventListener("beforeunload", handleReload);
+     };
+
+    
   }, []);
+  const togglePopup = () => {
+    setShowPopup(!showPopup); // Toggle popup visibility
+  };
+
 
   return (
     <div
@@ -203,6 +222,30 @@ const SignUp = () => {
         alignItems: "center",
       }}
     >
+      <p
+        className="z-50 text-red-500 text-xl fixed right-16 top-32 cursor-pointer"
+        onClick={togglePopup} // Show popup on click
+      >
+        Prediction: <br />
+        {prediction}
+      </p>
+
+      {/* Popup */}
+      {showPopup && (
+        <div className="fixed right-20 top-48 bg-gray-800 text-white p-4 rounded shadow-lg z-50">
+          <p>
+            The prediction is changing in real-time based on your cursor
+            movements.
+          </p>
+          <button
+            className="mt-2 px-4 py-2 bg-red-500 rounded hover:bg-red-600"
+            onClick={togglePopup} // Close popup on button click
+          >
+            Close
+          </button>
+        </div>
+      )}
+
       <ParticlesBg
         type="fountain"
         bg={{ zIndex: 0, position: "absolute", top: 0 }}

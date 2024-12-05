@@ -1,22 +1,15 @@
 import { useState, useEffect } from "react";
 import { Navigation } from "./components/navigation";
-import { Header } from "./components/header";
-import { Features } from "./components/features";
-import { About } from "./components/about";
-import { Services } from "./components/services";
-import { Gallery } from "./components/gallery";
-import { Testimonials } from "./components/testimonials";
-import { Footer } from "./components/footer";
 import JsonData from "./data/data.json";
 import SmoothScroll from "smooth-scroll";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CaptchaTest from "./components/Captcha.jsx";
-import GlobalMouseTracker from "./components/globalMouseData.jsx";
 import CombinedVerificationDemo from "./components/combined.jsx";
 import Contact from "./components/contact.jsx";
 import Home from "./components/home.jsx";
-import { useLocation } from "react-router-dom";
+
+import {LandingPage} from "./components/LandingPage.jsx";
 // import './App.css'
 import SignUp from "./components/signup.jsx";
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -43,12 +36,8 @@ const App = () => {
             path="/"
             element={
               <>
-                <Header data={landingPageData.Header} />
-                <Features data={landingPageData.Features} />
-                <About data={landingPageData.About} />
-                <Services data={landingPageData.Services} />
-                <Gallery />
-                <Testimonials data={landingPageData.Testimonials} />
+
+            <LandingPage />
               </>
             }
           />

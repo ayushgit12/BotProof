@@ -5,6 +5,8 @@ import dhruvImage from "../assets/dhruv.jpeg";
 import divyanshImage from "../assets/divyansh.jpeg";
 import sainiImage from "../assets/saini.jpeg";
 import arushiImage from "../assets/arushi.jpeg";
+import io from "socket.io-client";
+import { useState, useEffect } from "react";
 export const Testimonials = (props) => {
   const teamMembers = [
     {
@@ -32,6 +34,8 @@ export const Testimonials = (props) => {
       imageUrl: arushiImage,
     },
   ];
+
+
 
   return (
     <div className="bg-gray-100 py-12 mb-16">
