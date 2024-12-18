@@ -41,6 +41,6 @@ This project is designed to predict bot activity using mouse movement patterns c
    ```bash
    cd flask_backend
    pip install -r req.txt
-   python server.py
+   python app.py
    ```
    
