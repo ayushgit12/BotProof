@@ -19,7 +19,7 @@ This project is designed to predict bot activity using mouse movement patterns c
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/devvv17i/sih_bot.git
+   git clone https://github.com/ayushgit12/BotProof
    cd sih_bot
    ```
 
