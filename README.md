@@ -17,16 +17,16 @@ This project is designed to predict bot activity using mouse movement patterns c
 
 ## Workflow Of Project
 
-<img width="791" alt="Screenshot 2025-01-26 at 4 33 09 PM" src="https://github.com/user-attachments/assets/f3d4a42d-d608-4112-a571-23a123fc01b5" />
+<img width="750" alt="Screenshot 2025-01-26 at 4 33 09 PM" src="https://github.com/user-attachments/assets/f3d4a42d-d608-4112-a571-23a123fc01b5" />
 
 
 ## Live Working of Project
 
 ### Sending Coordinates and presenting the prediction on frontend:
-   (https://youtu.be/5OmkcFTNPGw)
+   https://youtu.be/5OmkcFTNPGw
    
 ### Overview of the website
-   (https://youtu.be/8vwy_w625WA)
+   https://youtu.be/8vwy_w625WA
 
 
 
